@@ -31,6 +31,7 @@ import static com.phasmidsoftware.dsaipg.util.Utilities.formatWhole;
  */
 public class Benchmark_Timer<T> implements Benchmark<T> {
 
+
     /**
      * Calculate the appropriate number of warmup runs.
      *

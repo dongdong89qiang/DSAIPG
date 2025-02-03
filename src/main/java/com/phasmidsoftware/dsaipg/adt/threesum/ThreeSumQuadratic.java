@@ -35,7 +35,7 @@ public class ThreeSumQuadratic implements ThreeSum {
      * the sum of its three integers is zero.
      */
     public Triple[] getTriples() {
-        List<Triple> triples = new ArrayList<>();
+        List<Triple> triples= new ArrayList<>();
         for (int i = 0; i < length; i++) triples.addAll(getTriples(i));
         Collections.sort(triples);
         return triples.stream().distinct().toArray(Triple[]::new);
@@ -48,9 +48,30 @@ public class ThreeSumQuadratic implements ThreeSum {
      * @return a Triple such that
      */
      List<Triple> getTriples(int j) {
+         //int[] inputArray = {-4, -1, -1, 0, 1, 2};
+        // Expected :Triple{x=-1, y=0, z=1}
+         //Actual   :Triple{x=0, y=-1, z=1}
          List<Triple> triples = new ArrayList<>();
         // TO BE IMPLEMENTED  : for each candidate, test if a[i] + a[j] + a[k] = 0.
-throw new RuntimeException("implementation missing");
+         int i=j-1;
+         int k=j+1;
+         while(i>=0&&k<length){
+         if(a[j]+a[i]+a[k]<0)
+         { k++;
+            continue;}
+         if(a[j]+a[i]+a[k]>0)
+         {  i--;
+             continue;}
+        else if(a[j]+a[i]+a[k]==0) {
+                triples.add(new Triple(a[i], a[j], a[k]));
+              k++;
+              i--;
+             continue;
+         }}
+         return triples;
+
+
+//throw new RuntimeException("implementation missing");
     }
 
     private final int[] a;

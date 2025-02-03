@@ -38,7 +38,8 @@ public class ThreeSumBenchmark {
      */
     public ThreeSumBenchmark(int runs, int n, int m) {
         this.runs = runs;
-        this.supplier = new Source(n, m).intsSupplier(10);
+       // this.supplier = new Source(n, m).intsSupplier(10);
+        this.supplier = new Source(n, m).intsSupplier(n);  //我改的
         this.n = n;
     }
 
@@ -102,8 +103,25 @@ public class ThreeSumBenchmark {
      */
     private void benchmarkThreeSum(final String description, final Consumer<int[]> function, int n, final TimeLogger[] timeLoggers) {
         if (description.equals("ThreeSumCubic") && n > 4000) return;
-        // TO BE IMPLEMENTED 
-throw new RuntimeException("implementation missing");
+        // TO BE IMPLEMENTED
+        // 构造 Benchmark_Timer 对象
+        // 参数说明：
+
+        Benchmark_Timer<int[]> timer = new Benchmark_Timer<int[]>(
+                description,
+                null,      // 无预处理
+                function,  // 注意：function 应当是一个 Consumer<int[]>，例如：
+                // (int[] xs) -> { new ThreeSumQuadratic(xs).getTriples(); }
+                null       // 无后处理
+        );
+        // 使用 supplier 提供测试输入，并执行指定次数的计时，返回平均耗时（单位为毫秒）
+        double averageTime = timer.runFromSupplier(supplier, runs);
+
+        // 输出测试结果
+        System.out.println(String.format("%s: n = %d, average time per run = %.3f msec", description, n, averageTime));
+        // 利用 timeLoggers 数组记录归一化时间
+
+        //throw new RuntimeException("implementation missing");
     }
 
     /**
